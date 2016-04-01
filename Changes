@@ -1,0 +1,6 @@
+Revision history for App-orgsel
+
+0.001   2016-04-01 (PERLANCAR) (unreleased)
+
+        - First release, split from App-OrgUtils and script renamed from
+          select-org-elements to orgsel.
