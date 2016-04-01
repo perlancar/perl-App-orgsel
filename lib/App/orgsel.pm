@@ -7,6 +7,8 @@ use 5.010001;
 use strict;
 use warnings;
 
+use Scalar::Util qw(refaddr);
+
 our %SPEC;
 
 $SPEC{orgsel} = {
@@ -20,22 +22,30 @@ $SPEC{orgsel} = {
         },
         file => {
             schema => 'str*',
+            'x.schema.entity' => 'filename',
             pos => 1,
             default => '-',
+        },
+        match_action => {
+            schema => 'str*',
+            default => 'print-as-string',
+            cmdline_aliases => {
+                count => { is_flag => 1, code => sub { $_[0]{match_action} = 'count' } },
+                # dump
+            },
         },
     },
 };
 sub orgsel {
-    require Data::Csel;
-    require Org::Parser;
-
     my %args = @_;
 
     # parse first so we can bail early on error without having to read the input
+    require Data::CSel;
     my $expr = $args{expr};
     Data::CSel::parse_csel($expr)
           or return [400, "Invalid CSel expression '$expr'"];
 
+    require Org::Parser;
     my $parser = Org::Parser->new;
 
     my $doc;
@@ -47,8 +57,17 @@ sub orgsel {
         $doc = $parser->parse_file($args{file});
     }
 
-    my @matches = Data::CSel::csel($expr);
-    [200, "OK", [map {$_->as_string} @matches]];
+    my @matches = Data::CSel::csel(
+        {class_prefixes=>["Org::Element"]}, $expr, $doc);
+
+    # skip root node itself
+    @matches = grep { refaddr($_) ne refaddr($doc) } @matches;
+
+    if ($args{match_action} eq 'count') {
+        [200, "OK", ~~@matches];
+    } else {
+        [200, "OK", [map {$_->as_string} @matches]];
+    }
 }
 
 1;
