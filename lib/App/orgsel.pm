@@ -13,7 +13,7 @@ our %SPEC;
 
 $SPEC{orgsel} = {
     v => 1.1,
-    summary => 'Select Org document elements using CSel (CSS-like) syntax',
+    summary => 'Select Org document elements using CSel (CSS-selector-like) syntax',
     args => {
         expr => {
             schema => 'str*',
