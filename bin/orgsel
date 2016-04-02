@@ -28,3 +28,6 @@ L<Org::Parser>
 L<Data::CSel>
 
 L<App::OrgUtils> for other Org-related utilities.
+
+L<htmlsel>, a similar application but for selecting elements of HTML document
+tree.
