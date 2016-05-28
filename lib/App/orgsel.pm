@@ -7,6 +7,7 @@ use 5.010001;
 use strict;
 use warnings;
 
+use App::CSelUtils;
 use Scalar::Util qw(refaddr);
 
 our %SPEC;
@@ -15,25 +16,8 @@ $SPEC{orgsel} = {
     v => 1.1,
     summary => 'Select Org document elements using CSel (CSS-selector-like) syntax',
     args => {
-        expr => {
-            schema => 'str*',
-            req => 1,
-            pos => 0,
-        },
-        file => {
-            schema => 'str*',
-            'x.schema.entity' => 'filename',
-            pos => 1,
-            default => '-',
-        },
-        match_action => {
-            schema => 'str*',
-            default => 'print-as-string',
-            cmdline_aliases => {
-                count => { is_flag => 1, code => sub { $_[0]{match_action} = 'count' } },
-                # dump
-            },
-        },
+        %App::CSelUtils::foosel_common_args,
+        %App::CSelUtils::foosel_action_args,
     },
 };
 sub orgsel {
@@ -63,11 +47,10 @@ sub orgsel {
     # skip root node itself
     @matches = grep { refaddr($_) ne refaddr($doc) } @matches;
 
-    if ($args{match_action} eq 'count') {
-        [200, "OK", ~~@matches];
-    } else {
-        [200, "OK", [map {$_->as_string} @matches]];
-    }
+    App::CSelUtils::do_actions_on_nodes(
+        nodes   => \@matches,
+        actions => $args{actions},
+    );
 }
 
 1;
