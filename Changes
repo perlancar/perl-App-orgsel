@@ -1,5 +1,15 @@
 Revision history for App-orgsel
 
+0.002   2016-05-28 (PERLANCAR)
+
+	- Support multiple actions on matching nodes (--action, --print,
+	  --print-method, --count).
+
+	- Mention htmlsel.
+
+	- Tweak summary.
+
+
 0.001   2016-04-01 (PERLANCAR)
 
         - First release, split from App-OrgUtils and script renamed from
