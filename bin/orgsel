@@ -37,3 +37,6 @@ syntax.
 
 L<yamlsel>, a similar application but for selecting YAML elements using CSel
 syntax.
+
+L<ddsel>, a similar application but for selecting Perl data structure elements
+using CSel syntax.
