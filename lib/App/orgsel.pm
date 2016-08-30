@@ -17,7 +17,7 @@ $SPEC{orgsel} = {
     summary => 'Select Org document elements using CSel (CSS-selector-like) syntax',
     args => {
         %App::CSelUtils::foosel_common_args,
-        %App::CSelUtils::foosel_action_args,
+        %App::CSelUtils::foosel_tree_action_args,
     },
 };
 sub orgsel {
