@@ -1,5 +1,12 @@
 Revision history for App-orgsel
 
+0.006   2016-09-01 (PERLANCAR)
+
+	- No functional changes.
+
+	- [doc] Mention CSel::Examples.
+
+
 0.005   2016-09-01 (PERLANCAR)
 
 	- [Bugfix] Don't skip root node if it's the only result.
