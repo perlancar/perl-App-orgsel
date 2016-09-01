@@ -45,7 +45,8 @@ sub orgsel {
         {class_prefixes=>["Org::Element"]}, $expr, $doc);
 
     # skip root node itself
-    @matches = grep { refaddr($_) ne refaddr($doc) } @matches;
+    @matches = grep { refaddr($_) ne refaddr($doc) } @matches
+        unless @matches <= 1;
 
     App::CSelUtils::do_actions_on_nodes(
         nodes   => \@matches,
