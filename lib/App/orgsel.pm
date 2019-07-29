@@ -29,7 +29,7 @@ sub orgsel {
             my $parser = Org::Parser->new;
             my $doc;
             if ($args->{file} eq '-') {
-                binmode STDIN, ":utf8";
+                binmode STDIN, ":encoding(utf8)";
                 $doc = $parser->parse(join "", <>);
             } else {
                 local $ENV{PERL_ORG_PARSER_CACHE} = $ENV{PERL_ORG_PARSER_CACHE} // 1;
