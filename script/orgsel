@@ -18,7 +18,7 @@ Perinci::CmdLine::Any->new(
 
 =head1 SYNOPSIS
 
- % orgsel "Headline[level=2]:first-child" ~/o/todo.org
+ % orgsel ~/o/todo.org "Headline[level=2]:first-child"
 
 
 =head1 SEE ALSO
@@ -29,14 +29,4 @@ L<Data::CSel>, L<CSel::Examples>
 
 L<App::OrgUtils> for other Org-related utilities.
 
-L<htmlsel>, a similar application but for selecting elements of HTML document
-tree using CSS selector syntax.
-
-L<jsonsel>, a similar application but for selecting JSON elements using CSel
-syntax.
-
-L<yamlsel>, a similar application but for selecting YAML elements using CSel
-syntax.
-
-L<ddsel>, a similar application but for selecting Perl data structure elements
-using CSel syntax.
+L<htmlsel>, L<jsonsel>, L<yamlsel>, L<ddsel>, L<podsel>, L<ppisel>
