@@ -1,6 +1,8 @@
 #!perl
 
+# AUTHORITY
 # DATE
+# DIST
 # VERSION
 
 use 5.010001;
@@ -20,15 +22,67 @@ Perinci::CmdLine::Any->new(
 
 =head1 SYNOPSIS
 
- % orgsel ~/o/todo.org "Headline[level=2]:first-child"
+Example document F<todo.org> (you can get this from the distribution shared
+file):
+
+# EXAMPLE: share/examples/todo.org
+
+Example document F<addressbook.org> (you can get this from the distribution
+shared file):
+
+# EXAMPLE: share/examples/addressbook.org
+
+To get a picture of the structure, you can use L<dump-org-structure>, for
+example C<dump-org-structure todo.org> will give:
+
+# COMMAND: dump-org-structure share/examples/todo.org
+
+Now for some selecting examples:
+
+ # select the second-level headlines where we store the todo items (title-only)
+ % orgsel todo.org 'Headline[level=2]' --node-action eval:'print $_->title->as_string,"\n"'
+ [2021-06-26 Sat] SQLite::KeyValueStore::Simple: add delete function
+ [2021-06-21 Mon] Perinci::CmdLine: unwanted removal of quotes?
+ [2021-06-21 Mon] Config::IOD: set_value() eats comments
+ [2021-06-18 Fri] Acme::CPANModules: category
+ [2021-06-17 Thu] perl module: Software::Catalog::SW::rakudo::moar
+ [2020-05-26 Tue] create a more generic version of csv-grep or csv-map
+ [2020-05-29 Fri] csvutils: make csv-grep-fields, a more flexible form of csv-select-fields
+
+ # when was a specific todo list last updated? (we look at log entries)
+ % orgsel todo.org 'Headline[level=2][title.as_string =~ /set_value/] Timestamp:first'
+ [2021-06-22]
+
+ # TODO: more examples coming
+
+
+=head1 DESCRIPTION
+
+This utility allows you to select nodes from Org document on the command-line
+using CSel selector syntax.
+
+Org is a plain-text document format for keeping notes, maintaining to-do lists,
+planning projects, authoring documents, and more. The specification and official
+documentation is at L<https://orgmode.org>.
+
+CSel is a pattern syntax to select various elements from a tree. It is modeled
+after CSS selector. The specification is at L<Data::CSel>.
+
+In B<orgsel>, Org document is first parsed into a document tree using
+L<Org::Parser> then selected with the given CSel expression. Types are
+C<Org::Element::*> classes (without the prefix).
+
+See examples in the Synopsis to get an idea on how to use B<orgsel>.
 
 
 =head1 SEE ALSO
 
-L<Org::Parser>
+If you want to select Org node elements from Perl, use L<Org::Parser> and
+L<Data::CSel> directly.
 
-L<Data::CSel>, L<CSel::Examples>
+More examples of CSel in general in L<CSel::Examples>.
 
 L<App::OrgUtils> for other Org-related utilities.
 
-L<htmlsel>, L<jsonsel>, L<yamlsel>, L<ddsel>, L<podsel>, L<ppisel>
+L<htmlsel>, L<jsonsel>, L<yamlsel>, L<ddsel>, L<podsel>, L<ppisel> apply CSel to
+other types of documents.
