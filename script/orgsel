@@ -53,7 +53,27 @@ Now for some selecting examples:
  % orgsel todo.org 'Headline[level=2][title.as_string =~ /set_value/] Timestamp:first'
  [2021-06-22]
 
- # TODO: more examples coming
+ # how many bugs do we have?
+ % orgsel todo.org 'Headline[level=2][todo_state="BUG"]' --count
+
+ # how many bugs and other undone todo items?
+ % orgsel todo.org 'Headline[level=2][is_todo is true][is_done is false]' --count
+
+ # how many undone todo items for csvutils project?
+ % orgsel todo.org 'Headline[level=1][title.as_string =~ /csvutils/] > Headline[level=2][is_todo is true][is_done is false]' --count
+
+ # dump a particular todo item (helps visualize structure to select further)
+ % orgsel todo.org 'Headline[level=2][title.as_string =~ /eats comments/]' | dump-org-structure
+
+ # show the update log of the todo item (with the "- log ::"):
+ % orgsel todo.org 'Headline[level=2][title.as_string =~ /eats comments/] > List > ListItem[desc_term.text = "log"]:parent'
+
+ # show the update log of the todo item (without the "- log ::"):
+ % orgsel todo.org 'Headline[level=2][title.as_string =~ /eats comments/] > List > ListItem[desc_term.text = "log"] + *'
+
+ # select todo items which have been updated at least twice (by looking at
+ # number of list items under "log")
+ % orgsel todo.org 'Headline[level=2] > List > ListItem[desc_term.text = "log"] + *:has-min-children(2):parent:parent'
 
 
 =head1 DESCRIPTION
