@@ -22,22 +22,19 @@ Perinci::CmdLine::Any->new(
 
 =head1 SYNOPSIS
 
+=head2 Examples using F<todo.org>
+
 Example document F<todo.org> (you can get this from the distribution shared
 file):
 
 # EXAMPLE: share/examples/todo.org
-
-Example document F<addressbook.org> (you can get this from the distribution
-shared file):
-
-# EXAMPLE: share/examples/addressbook.org
 
 To get a picture of the structure, you can use L<dump-org-structure>, for
 example C<dump-org-structure todo.org> will give:
 
 # COMMAND: dump-org-structure share/examples/todo.org
 
-Now for some selecting examples:
+Now for some selecting examples on F<todo.org>:
 
  # select the second-level headlines where we store the todo items (title-only)
  % orgsel todo.org 'Headline[level=2]' --node-action eval:'print $_->title->as_string,"\n"'
@@ -75,6 +72,24 @@ Now for some selecting examples:
  # number of list items under "log")
  % orgsel todo.org 'Headline[level=2] > List > ListItem[desc_term.text = "log"] + *:has-min-children(2):parent:parent'
 
+=head2 Examples using F<addressbook.org>
+
+Example document F<addressbook.org> (you can get this from the distribution
+shared file):
+
+# EXAMPLE: share/examples/addressbook.org
+
+Now for some selecting examples on F<todo.org>:
+
+ # list contacts which have certain tag ("vet")
+ % orgsel addressbook.org 'Headline[level=2][tags has "vet"]' --eval 'say $_->title->as_string'
+
+ # count contacts matching /budi (and list them as well)
+ % orgsel addressbook.org 'Headline[level=2][title.as_string =~ /budi/i]'  --eval 'say $_->title->as_string' --count
+
+ # show notes about contact 'deni setiawan'
+ % orgsel addressbook.org 'Headline[level=2][title.as_string = "deni setiawan"] > List > ListItem[desc_term.text = "notes"] + *'
+
 
 =head1 DESCRIPTION
 
@@ -94,6 +109,13 @@ C<Org::Element::*> classes (without the prefix).
 
 See examples in the Synopsis to get an idea on how to use B<orgsel>.
 
+Some tips:
+
+=over
+
+=item * To find out which attributes (methods) available for selecting using attribute selector, see documentation on C<Org::Element::*>
+
+=back
 
 =head1 SEE ALSO
 
