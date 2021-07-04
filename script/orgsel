@@ -79,7 +79,7 @@ shared file):
 
 # EXAMPLE: share/examples/addressbook.org
 
-Now for some selecting examples on F<todo.org>:
+Now for some selecting examples on F<addressbook.org>:
 
  # list contacts which have certain tag ("vet")
  % orgsel addressbook.org 'Headline[level=2][tags has "vet"]' --eval 'say $_->title->as_string'
