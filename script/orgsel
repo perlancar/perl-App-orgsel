@@ -17,6 +17,8 @@ Perinci::CmdLine::Any->new(
     read_env => 0,
 )->run;
 
+# test comment
+
 # ABSTRACT:
 # PODNAME:
 
